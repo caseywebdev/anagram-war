@@ -1,0 +1,11 @@
+{
+  "name": "anagram-war",
+  "version": "0.0.1",
+  "author": "Casey Foster <casey@caseywebdev.com>",
+  "main": "./app",
+  "dependencies": [
+    "zappajs",
+    "underscore",
+    "backbone"
+  ]
+}
