@@ -1,5 +1,5 @@
 module.exports = ->
-  @view 'index': ->
+  @view index: ->
     div id: 'panel'
     form ->
       input id: 'box'

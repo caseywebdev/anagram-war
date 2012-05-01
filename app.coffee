@@ -27,7 +27,7 @@ require('zappajs') ->
   
   # Set the static public directory
   @use
-    static: __dirname + '/../public'
+    static: __dirname + '/public'
     
   # Minify production code
   @configure

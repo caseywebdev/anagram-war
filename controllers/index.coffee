@@ -1,6 +1,6 @@
 module.exports = ->
   @get '/': ->
-    @render index: {layout: no}
+    @render 'index'
   
   @on 'set nickname': ->
     @client.nickname = @data.nickname
