@@ -6,7 +6,7 @@ module.exports = ->
       $('#panel').append "<p>#{@data.nickname} said: #{@data.text}</p>"
     
     $ =>
-      @emit 'set nickname': {nickname: prompt 'Pick a nickname!'}
+      @emit 'set nickname': {nickname: 'Billy'}
       
       $('#box').focus()
       

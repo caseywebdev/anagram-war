@@ -2,7 +2,7 @@
   "name": "anagram-war",
   "version": "0.0.1",
   "author": "Casey Foster <casey@caseywebdev.com>",
-  "main": "./app",
+  "main": "./app.coffee",
   "dependencies": [
     "zappajs",
     "underscore",

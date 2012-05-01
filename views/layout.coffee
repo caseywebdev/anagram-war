@@ -1,9 +1,9 @@
 module.exports = ->
-  @view 'index': ->
+  @view 'layout': ->
     doctype 5
     html ->
       head ->
-        title 'PicoChat!'
+        title 'Anagram War'
         script src: '/underscore-min.js'
         script src: '/backbone-min.js'
         script src: '/socket.io/socket.io.js'
@@ -12,7 +12,4 @@ module.exports = ->
         script src: '/index.js'
         script src: '/user.js'
       body ->
-        div id: 'panel'
-        form ->
-          input id: 'box'
-          input 'Send', type: 'submit'
+        @body
