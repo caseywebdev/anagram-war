@@ -6,6 +6,7 @@
   "dependencies": [
     "zappajs",
     "underscore",
-    "backbone"
+    "backbone",
+    "stylus"
   ]
 }

@@ -1,5 +1,5 @@
-module.exports = ->
-  @client '/index.js': ->
+@include = ->
+  @client '/application.js': ->
     @connect()
     
     @on said: ->

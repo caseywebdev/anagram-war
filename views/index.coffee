@@ -1,4 +1,4 @@
-module.exports = ->
+@include = ->
   @view index: ->
     div id: 'panel'
     form ->

@@ -2,39 +2,31 @@
 fs = require 'fs'
 path = require 'path'
 _ = require 'underscore'
-Backbone = require 'backbone'
 
 # Merge collective `exports` into a single array for a given directory
 requireRecursive = (file) ->
   results = []
   if fs.lstatSync(file).isDirectory()
-    _(fs.readdirSync file).each (sub) ->
+    _.each fs.readdirSync(file), (sub) ->
       results.push requireRecursive path.join file, sub
   else unless file is __filename
-    results.push require file
+    results.push require(file)?.include or null
   _.flatten results
 
 # Directories to require
 reqs = [
-  __dirname + '/models'
-  __dirname + '/views'
-  __dirname + '/controllers'
-  __dirname + '/client'
+  "#{__dirname}/config.coffee"
+  "#{__dirname}/models"
+  "#{__dirname}/views"
+  "#{__dirname}/controllers"
+  "#{__dirname}/client"
+  "#{__dirname}/stylus"
 ]
 
 # Start the server
 require('zappajs') ->
-  
-  # Set the static public directory
-  @use
-    static: __dirname + '/public'
     
-  # Minify production code
-  @configure
-    production: =>
-      @enable 'minify'
-  
-  # Import MVCC
-  _(reqs).each (req) =>
-    _(requireRecursive req).each (fn) =>
-      fn.call @
+  # Import requirements
+  _.each reqs, (req) =>
+    _.each requireRecursive(req), (fn) =>
+      fn?.call? @

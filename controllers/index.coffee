@@ -1,4 +1,4 @@
-module.exports = ->
+@include = ->
   @get '/': ->
     @render 'index'
   
