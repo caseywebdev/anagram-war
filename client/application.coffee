@@ -1,5 +1,5 @@
 @include = ->
-  @client '/application.js': ->
+  @client '/javascripts/application.js': ->
     @connect()
     
     @on said: ->

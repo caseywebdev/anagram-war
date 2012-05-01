@@ -1,6 +1,6 @@
 Backbone = require 'backbone'
 
 @include = ->
-  @shared '/user.js': ->
+  @shared '/javascripts/user.js': ->
     class (window ? global).User extends Backbone.Model
       urlRoot: '/users/'

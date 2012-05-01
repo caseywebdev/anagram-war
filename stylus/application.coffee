@@ -1,5 +1,5 @@
 @include = ->
-  @stylus '/application.css': '''
+  @stylus '/stylesheets/application.css': '''
     body
       background: #000
   '''
