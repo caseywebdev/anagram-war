@@ -11,6 +11,6 @@
         script src: '/socket.io/socket.io.js'
         script src: '/zappa/jquery.js'
         script src: '/zappa/zappa.js'
-        script src: '/index.js'
         script src: '/user.js'
+        script src: '/application.js'
       body @body
