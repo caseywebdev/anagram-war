@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+sudo NODE_ENV=production forever start -c coffee -a -l forever.log -o log/output.log -e log/error.log app.coffee
