@@ -24,7 +24,7 @@ reqs = [
 ]
 
 # Start the server
-require('zappajs') ->
+require('zappajs') (if process.env.NODE_ENV is 'production' then 80 else 3000), ->
     
   # Import requirements
   _.each reqs, (req) =>

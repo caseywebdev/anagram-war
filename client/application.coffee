@@ -1,16 +1,36 @@
 @include = ->
   @client '/javascripts/application.js': ->
+    
     @connect()
     
-    @on said: ->
-      $('#panel').append "<p>#{@data.nickname} said: #{@data.text}</p>"
+    Backbone.sync = ->
+    
+    users = new User.Collection
+    user = new User
+    
+    @on disconnect: ->
+      $('#panel').append "<p style='font-weight: bold; color: #d40'>You were disconnected.</p>"
+      user = new User
+    
+    @on attr: ->
+      user.set @data
+    
+    @on notice: ->
+      $('#panel').append "<p style='font-weight: bold; color: #d40'>#{@data.text}</p>"
+    
+    @on say: ->
+      $('#panel').append "<p>#{_.escape @data.name} said: #{_.escape @data.text}</p>"
     
     $ =>
-      @emit 'set nickname': {nickname: 'Billy'}
       
       $('#box').focus()
       
       $('form').submit (e) =>
-        @emit said: {text: $('#box').val()}
+        if user.get 'name'
+          @emit say: {text: $('#box').val()}
+          
+        else
+          @emit attr:
+            name: $('#box').val()
         $('#box').val('').focus()
         e.preventDefault()

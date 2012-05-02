@@ -2,5 +2,14 @@ Backbone = require 'backbone'
 
 @include = ->
   @shared '/javascripts/user.js': ->
-    class (window ? global).User extends Backbone.Model
-      urlRoot: '/users/'
+    
+    root = window ? global
+    
+    class root.User extends Backbone.Model
+      
+      connect: ->
+        z.client.connect()
+      
+    class root.User.Collection extends Backbone.Collection
+      
+      model: User
