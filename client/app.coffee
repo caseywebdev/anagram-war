@@ -1,5 +1,5 @@
 @include = ->
-  @client '/javascripts/application.js': ->
+  @client '/js/app.js': ->
     
     @connect()
     
@@ -8,9 +8,12 @@
     users = new User.Collection
     user = new User
     
-    @on disconnect: ->
+    @on connection: ->
       $('#panel').append "<p style='font-weight: bold; color: #d40'>You were disconnected.</p>"
       user = new User
+    
+    @on disconnect: ->
+      $('#panel').append "<p style='font-weight: bold; color: #d40'>You were disconnected.</p>"
     
     @on attr: ->
       user.set @data

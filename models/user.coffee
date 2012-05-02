@@ -1,7 +1,7 @@
 Backbone = require 'backbone'
 
 @include = ->
-  @shared '/javascripts/user.js': ->
+  @shared '/js/models/user.js': ->
     
     root = window ? global
     

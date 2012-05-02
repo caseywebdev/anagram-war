@@ -1,3 +1,4 @@
 @include = ->
   @get '/': ->
-    @render 'index'
+    @render 'layout'
+  
