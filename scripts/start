@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-sudo NODE_ENV=production forever start -w -a -l forever.log -e log/error.log -o log/output.log -c coffee app.coffee
+sudo NODE_ENV=production /usr/local/bin/forever start -w -a -l forever.log -e log/error.log -o log/output.log -c coffee app.coffee
