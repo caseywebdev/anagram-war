@@ -4,6 +4,7 @@ Backbone = require 'backbone'
   @shared '/js/models/user.js': ->
     
     root = window ? global
+    z = @
     
     class root.User extends Backbone.Model
       

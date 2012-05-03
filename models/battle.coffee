@@ -4,7 +4,6 @@ Backbone = require 'backbone'
   @shared '/js/models/battle.js': ->
     
     root = window ? global
-    z = @
     
     class root.Battle extends Backbone.Model
       
