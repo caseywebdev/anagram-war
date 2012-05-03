@@ -9,7 +9,7 @@
       color: #fff
       background: #630 noise
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
-      font-weight: 200
+      font-weight: 20
       font-size: 14px
     
     a
