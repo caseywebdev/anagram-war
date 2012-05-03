@@ -9,31 +9,32 @@
     user = new User
     
     @on connection: ->
-      $('#panel').append "<p style='font-weight: bold; color: #d40'>You were disconnected.</p>"
-      user = new User
+      $('#message-panel').append "<p style='font-weight: bold; color: #d40'>You were disconnected.</p>"
     
     @on disconnect: ->
-      $('#panel').append "<p style='font-weight: bold; color: #d40'>You were disconnected.</p>"
+      if user.get 'name'
+        $('#message-panel').append "<p style='font-weight: bold; color: #d40'>You were disconnected.</p>"
+      user = new User
     
     @on attr: ->
       user.set @data
     
     @on notice: ->
-      $('#panel').append "<p style='font-weight: bold; color: #d40'>#{@data.text}</p>"
+      $('#message-panel').append "<p style='font-weight: bold; color: #d40'>#{@data.text}</p>"
     
     @on say: ->
-      $('#panel').append "<p>#{_.escape @data.name} said: #{_.escape @data.text}</p>"
+      $('#message-panel').append "<p>#{_.escape @data.name} said: #{_.escape @data.text}</p>"
     
     $ =>
       
-      $('#box').focus()
+      $('#message-box').focus()
       
-      $('form').submit (e) =>
+      $('#message-form').submit (e) =>
         if user.get 'name'
-          @emit say: {text: $('#box').val()}
+          @emit say: {text: $('#message-box').val()}
           
         else
           @emit attr:
-            name: $('#box').val()
-        $('#box').val('').focus()
+            name: $('#message-box').val()
+        $('#message-box').val('').focus()
         e.preventDefault()

@@ -1,15 +1,16 @@
 @include = ->
   @stylus '/css/app.css': '''
     noise = url('/images/noise.png')
-    container()
+    container-width = 800px
+    container(width = container-width)
       margin: 0 auto
-      width: 800px
+      width: width
     
     body
       color: #fff
       background: #630 noise
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
-      font-weight: 20
+      font-weight: 200
       font-size: 14px
     
     a
@@ -19,6 +20,7 @@
       margin: 0 0 10px
     
     #sky
+      min-width: container-width
       background: #ccf url('/images/sky.jpg') center bottom repeat-x
       box-shadow: 0 1px 50px #000
     
@@ -34,7 +36,7 @@
       background: url('/images/footer.png') center bottom no-repeat
     
     #footer
-      container()
+      container(container-width - 100px)
       padding: 50px
       color: #eee
       text-align: center

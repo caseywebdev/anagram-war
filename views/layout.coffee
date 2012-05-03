@@ -17,6 +17,10 @@
         div '#sky', ->
           header '#header', ->
           div '#main', ->
+            div '#message-panel', ->
+            form '#message-form', ->
+              input '#message-box', ->
+              input type: 'submit'
         footer '#footer', ->
           p "It's a war of the words. Uses Node, Backbone, Underscore, jQuery, Express, Connect, Socket.io, Zappa, and anything else you can dream of."
           text "Copyright © 2012 <a href='http://caseywebdev.com/'>caseyWebDev</a>. All rights reserved. <a href='https://github.com/caseywebdev/anagram-war'>Source on GitHub</a>."
