@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-forever stop app.coffee
+#sudo stop app.coffee
