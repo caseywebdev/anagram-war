@@ -1,3 +1,5 @@
 #!/usr/bin/env sh
 APP_BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/..
+echo "$APP_BASE/app.coffee"
+echo "$APP_BASE/log/output.log"
 sudo NODE_ENV=production nodemon "$APP_BASE/app.coffee" > "$APP_BASE/log/output.log" &
