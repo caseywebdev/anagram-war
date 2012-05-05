@@ -17,5 +17,5 @@ Backbone = require 'backbone'
       render: ->
         @$el.html(@template @model)
           .removeClass('in-battle')
-        @$el.addClass 'in-battle' if @model.inBattle
+        @$el.addClass 'in-battle' if @model.get 'inBattle'
         @

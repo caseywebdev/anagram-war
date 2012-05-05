@@ -171,7 +171,7 @@
         font-size: 30px
       
       .words
-        height: 200px
+        height: 210px
         overflow-y: auto
         padding: 10px
       
