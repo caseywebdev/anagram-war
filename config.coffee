@@ -1,3 +1,6 @@
+_ = require 'underscore'
+fs = require 'fs'
+
 @include = ->
   # Set the static public directory
   @use
@@ -21,3 +24,4 @@
       'jsonp-polling'
     ]
   
+  @words = _.filter fs.readFileSync('lib/dictionary.txt').toString().split("\n"), (word) -> word

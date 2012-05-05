@@ -1,4 +1,7 @@
 @include = ->
+  
+  words = @words
+  
   @get '/': ->
-    @render 'layout'
+    @render layout: words: words
   

@@ -7,20 +7,26 @@ _ = require 'underscore'
   
   @on connection: ->
     @client.user = new User
-  
+    @emit users: users.toJSON()
+    @broadcast users: users.toJSON()
+
   @on disconnect: ->
     if name = @client.user.get 'name'
       @broadcast notice:
         battle: @client.user.get 'battle'
         text: "#{name} has disconnected."
       @client.user.destroy()
+      @emit users: users.toJSON()
+      @broadcast users: users.toJSON()
   
   @on attr: ->
     if @client.user.get 'name'
       @client.user.set @data
       @emit attr: @client.user.attributes
     else
-      name = (@data.name or '').replace(/\s+/, ' ').replace /^ | $/, ''
+      name = (@data.name or '')
+        .replace(/\s+/, ' ')
+        .replace(/^ | $/, '')[0...16]
       matches = users.filter (u) ->
         u.get('name').toLowerCase() is name.toLowerCase()
       if name and not matches.length
@@ -31,10 +37,12 @@ _ = require 'underscore'
         @emit notice:
           text: "Welcome to Anagram War, #{_.escape name}!"
         @broadcast notice:
-          text: "#{name} has connected."
+          text: "#{_.escape name} has connected."
+        @emit users: users.toJSON()
+        @broadcast users: users.toJSON()
+        @emit 'signedIn'
       else
-        @emit error:
-          text: 'That name is unavailable, please choose another.'
+        @emit 'nameUnavailable'
     
   
   @on say: ->

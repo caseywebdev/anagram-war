@@ -2,13 +2,16 @@ _ = require 'underscore'
 Backbone = require 'backbone'
 
 @include = ->
-  @coffee '/javascripts/views/lobby.js': ->
+  @coffee '/js/views/user-view.js': ->
         
-    class window.LobbyView extends Backbone.Model
+    class window.UserView extends Backbone.View
+      
+      tagName: 'a'
+       
+      className: 'user'
       
       template: _.template '''
-        
-        
+        <%- get('name') %>
       '''
       
       render: ->
