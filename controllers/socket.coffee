@@ -93,9 +93,9 @@ _ = require 'underscore'
       if scores[0] is scores[1]
         data = text: "#{_.escape user1.get 'name'} and #{_.escape user2.get 'name'} tied with a score of #{scores[0]}!"
       else if scores[0] > scores[1]
-        data = text: "#{_.escape user1.get 'name'} defeated #{_.escape user2.get 'name'} by a with of #{scores[0]} to #{scores[1]}!"
+        data = text: "#{_.escape user1.get 'name'} defeated #{_.escape user2.get 'name'} with a score of #{scores[0]} to #{scores[1]}!"
       else
-        data = text: "#{_.escape user2.get 'name'} defeated #{_.escape user1.get 'name'} by a with of #{scores[1]} to #{scores[0]}!"
+        data = text: "#{_.escape user2.get 'name'} defeated #{_.escape user1.get 'name'} with a score of #{scores[1]} to #{scores[0]}!"
       @emit notice: data
       @broadcast notice: data
       @emit users: users.toJSON()

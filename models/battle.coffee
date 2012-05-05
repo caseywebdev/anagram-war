@@ -9,7 +9,7 @@ Backbone = require 'backbone'
       
       # In miliseconds for javascript's sake
       # 2 minutes
-      @DURATION: .33*60*1000
+      @DURATION: 2*60*1000
       
       wordPlayed: (word) ->
         @get('users').reduce (check, user) ->
