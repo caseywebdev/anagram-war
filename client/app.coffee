@@ -30,10 +30,10 @@
     
     @on disconnect: ->
       notice 'Your connection to Anagram War was lost.'
+      signIn if user.get 'name' then 'You were disconnected.' else null
       user = new User
       users.reset()
       $('#users-list').empty()
-      signIn()
     
     @on error: ->
       notice "An error occurred. #{@data}"
@@ -58,7 +58,7 @@
         $('#users-list').append (new UserView model: user).render().$el
     
     @on nameUnavailable: ->
-      signIn('That name is unavailable.')
+      signIn 'That name is unavailable.'
     
     $ =>
       

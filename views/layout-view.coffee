@@ -17,6 +17,7 @@
         script src: '/js/models/user.js'
         script src: '/js/models/battle.js'
         script src: '/js/models/tile.js'
+        script src: '/js/models/rack.js'
         script src: '/js/views/lobby-view.js'
         script src: '/js/views/message-view.js'
         script src: '/js/views/user-view.js'

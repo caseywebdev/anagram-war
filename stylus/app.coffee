@@ -126,6 +126,7 @@
       padding: 10px
       background: #fff noise
       box-shadow: 0 1px 3px rgba(0, 0, 0, .5)
+      border-radius: 3px
       
       .error
         margin-bottom: 10px
