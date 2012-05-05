@@ -21,7 +21,7 @@ _ = require 'underscore'
         battle.destroy()
         opponent.set inBattle: false
         @broadcast notice:
-          text: "#{_.escape opponent.get 'name'} defeated #{_.escape name}!"
+          text: "#{_.escape opponent.get 'name'} defeated #{_.escape name} by forfeit!"
         @io.sockets.socket(opponent.get 'socketId').emit 'battleOver'
       @broadcast notice:
         text: "#{name} has disconnected."
@@ -75,17 +75,32 @@ _ = require 'underscore'
       rack: (new Rack).randomize()
     battles.add battle
     user1.set
-      number: 1
       inBattle: true
       words: []
     user2.set
-      number: 2
       inBattle: true
       words: []
     @emit users: users.toJSON()
     @broadcast users: users.toJSON()
     @emit 'battle', battle: battle.toJSON()
     @io.sockets.socket(user1.get 'socketId').emit 'battle', battle: battle.toJSON()
+    setTimeout =>
+      user1.set inBattle: false
+      user2.set inBattle: false
+      @emit 'battleOver'
+      @io.sockets.socket(user1.get 'socketId').emit 'battleOver'
+      scores = battle.scores()
+      if scores[0] is scores[1]
+        data = text: "#{_.escape user1.get 'name'} and #{_.escape user2.get 'name'} tied with a score of #{scores[0]}!"
+      else if scores[0] > scores[1]
+        data = text: "#{_.escape user1.get 'name'} defeated #{_.escape user2.get 'name'} by a with of #{scores[0]} to #{scores[1]}!"
+      else
+        data = text: "#{_.escape user2.get 'name'} defeated #{_.escape user1.get 'name'} by a with of #{scores[1]} to #{scores[0]}!"
+      @emit notice: data
+      @broadcast notice: data
+      @emit users: users.toJSON()
+      @broadcast users: users.toJSON()
+    , Battle.DURATION
   
   @on declineChallenge: ->
     user1 = users.where(name: @data.name1)[0]
@@ -104,8 +119,8 @@ _ = require 'underscore'
       @client.user.get('words').push word
       opponent = battle.get('users').find (u) ->
         u.get('name') isnt name
-      user1 = battle.get('users').where(number: 1)[0]
-      user2 = battle.get('users').where(number: 2)[0]
+      user1 = battle.get('users').models[0]
+      user2 = battle.get('users').models[1]
       data =
         user1: user1.toJSON()
         user2: user2.toJSON()

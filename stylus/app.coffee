@@ -141,6 +141,7 @@
         width: 200px
     
     #played-tiles
+      position: relative;
       margin-bottom: 10px
       min-height: 80px
       border-radius: 3px

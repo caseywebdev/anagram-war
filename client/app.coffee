@@ -81,6 +81,14 @@
         rack: new Rack battle.get 'rack'
       (new BattleView model: battle).render()
       playMessage 'green', 'GO!!!'
+      setTimeout ->
+        secondsLeft = 10
+        countdown = setInterval ->
+          console.log 'tick'
+          playMessage 'green', "#{secondsLeft} seconds left!!!"
+          clearInterval countdown if --secondsLeft < 1
+        , 1000
+      , Battle.DURATION - 11*1000
     
     @on declineChallenge: ->
       _.PopUp.show "#{_.escape @data.name2} declined your challenge.", duration: 2000
