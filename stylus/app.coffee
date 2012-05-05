@@ -74,7 +74,7 @@
     #users-container
       float: left
       width: 200px
-      height: 400px
+      height: 410px
       overflow-y: auto
       
       h1
@@ -136,4 +136,58 @@
       
       input
         width: 200px
+    
+    #played-tiles
+      margin-bottom: 10px
+      min-height: 80px
+      border-radius: 3px
+      background: #fff noise
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .5)
+    
+    #user1-container,
+    #user2-container
+      float: left
+      width: 200px
+      border-radius: 3px
+      background: #fff noise
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .5)
+      
+      .name
+        line-height: 40px
+        color: #fff
+        text-shadow: 0 1px 1px rgba(0, 0, 0, .5)
+        background: #f66 noise
+        text-align: center
+        font-size: 20px
+        border-top-left-radius: 3px
+        border-top-right-radius: 3px
+      
+      .score
+        line-height: 50px
+        color: #fff
+        text-shadow: 0 1px 1px rgba(0, 0, 0, .5)
+        background: #f96 noise
+        text-align: center
+        font-size: 30px
+      
+      .words
+        height: 200px
+        overflow-y: auto
+        padding: 10px
+      
+    #rack
+      float: left
+      width: 400px
+      text-align: center
+      
+      .tile
+        display: inline-block
+        width: 80px
+        padding-top: 20px
+        height: 60px
+        color: #fff
+        text-shadow: 0 1px 1px rgba(0, 0, 0, .75)
+        font-size: 30px
+        text-align: center
+        background: url('/images/tile.png') center no-repeat
   '''

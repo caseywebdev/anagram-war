@@ -7,35 +7,16 @@ Backbone = require 'backbone'
     
     class root.Tile extends Backbone.Model
       
-      @COUNT = 15
-      
       # Based off of the standard Boggle tile distribution
       # Retrieved from http://everything2.com/title/Boggle
       # 'letter' : occurances
-      @DISTRIBUTION:
-        'a' : 6,
-        'b' : 2,
-        'c' : 2,
-        'd' : 3,
-        'e' : 11,
-        'f' : 2,
-        'g' : 2,
-        'h' : 5,
-        'i' : 6,
-        'j' : 1,
-        'k' : 1,
-        'l' : 4,
-        'm' : 2,
-        'n' : 6,
-        'o' : 7,
-        'p' : 2,
-        'qu': 1,
-        'r' : 5,
-        's' : 6,
-        't' : 9,
-        'u' : 3,
-        'v' : 2,
-        'w' : 3,
-        'x' : 1,
-        'y' : 3,
-        'z' : 1
+      @DISTRIBUTION: [
+        ['A', 'E', 'A', 'N', 'E', 'G'],   ['W', 'N', 'G', 'E', 'E', 'H'],
+        ['A', 'H', 'S', 'P', 'C', 'O'],   ['L', 'N', 'H', 'N', 'R', 'Z'],
+        ['A', 'S', 'P', 'F', 'F', 'K'],   ['T', 'S', 'T', 'I', 'Y', 'D'],
+        ['O', 'B', 'J', 'O', 'A', 'B'],   ['O', 'W', 'T', 'O', 'A', 'T'],
+        ['I', 'O', 'T', 'M', 'U', 'C'],   ['E', 'R', 'T', 'T', 'Y', 'L'],
+        ['R', 'Y', 'V', 'D', 'E', 'L'],   ['T', 'O', 'E', 'S', 'S', 'I'],
+        ['L', 'R', 'E', 'I', 'X', 'D'],   ['T', 'E', 'R', 'W', 'H', 'V'],
+        ['E', 'I', 'U', 'N', 'E', 'S'],   ['N', 'U', 'I', 'H', 'M', 'Qu']
+      ]

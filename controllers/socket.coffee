@@ -60,11 +60,16 @@ _ = require 'underscore'
     @io.sockets.socket(socketId).emit 'challenge', name1: @data.name1
   
   @on acceptChallenge: ->
-    user1 = users.where(name: @data.name2)[0]
+    user1 = users.where(name: @data.name1)[0]
     user2 = @client.user
     battle = new Battle
-    battle.users.add [user1, user2]
-    battle.rack.randomize()
+      users: new User.Collection [user1, user2]
+      rack: (new Rack).randomize()
+    battles.add battle
+    user1.set inBattle: true
+    user2.set inBattle: true
+    @emit users: users.toJSON()
+    @broadcast users: users.toJSON()
     @emit 'battle', battle: battle.toJSON()
     @io.sockets.socket(user1.get 'socketId').emit 'battle', battle: battle.toJSON()
   

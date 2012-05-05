@@ -1,8 +1,8 @@
 @include = ->
   @client '/js/app.js': ->
     
-    io = @connect()
-        
+    @connect()
+    
     Backbone.sync = ->
     
     users = new User.Collection
@@ -20,7 +20,7 @@
       messages.push view
       $('#chat-log')
         .append(view.$el)
-        .scrollTop $('#chat-log')[0].scrollHeight
+        .scrollTop $('#chat-log').prop 'scrollHeight'
     
     lobby = ->
       (new LobbyView model:
@@ -71,7 +71,11 @@
       (new ChallengeView model: name1: user1.get 'name').render()
     
     @on battle: ->
-      battle.set @data
+      _.PopUp.hide()
+      battle = new Battle @data.battle
+      battle.set
+        users: new User.Collection battle.get 'users'
+        rack: new Rack battle.get 'rack'
       (new BattleView model: battle).render()
     
     @on declineChallenge: ->

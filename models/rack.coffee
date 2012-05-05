@@ -13,16 +13,8 @@ Backbone = require 'backbone'
       played: []
       
       randomize: ->
-        @reset()
-        basket = []
-        _.each Tile.DISTRIBUTION, (occurances, letter) ->
-          _.times occurances, ->
-            basket.push letter
-        _.times Tile.COUNT, =>
-          randomI = Math.floor Math.random() * basket.length
-          @add new Tile letter: basket[randomI]
-          basket.splice randomI, 1
-        @
+        @reset _.map Tile.DISTRIBUTION, (die) ->
+          new Tile letter: die[Math.floor Math.random() * die.length]
       
       word: ->
         @reduce (letters, tile) ->
