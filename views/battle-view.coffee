@@ -9,21 +9,25 @@ Backbone = require 'backbone'
       el: '#main'
       
       template: _.template '''
-        <div id='users-container'>
-          <h1>Users</h1>
-          <p>Click on a user to battle them.</p>
-          <div id='users-list'></div>
-        </div><div id='chat-container'>
-          <div id='chat-log'></div>
-          <input id='say'>
+        <div id='played-tiles'></div>
+        <div id='user1-container'>
+          <div id='name'><%= users.models[0].get('name') %></div>
+          <div id='score'>0</div>
+          <div id='words'></div>
+        </div>
+        <div id='rack'>
+          <% rack.each(function(tile) { %>
+            <div class='tile'><%= tile.get('letter') %>
+          <% }) %>
+        </div>
+        <div id='user2-container'>
+          <div class='name'><%= users.models[0].get('name') %></div>
+          <div class='score'>0</div>
+          <div class='words'></div>
         </div>
         <div style='clear: both'></div>
       '''
       
       render: ->
-        @$el.html @template()
-        @model.users.each (user) =>
-          @$('#users-list').append (new UserView model: user).render().$el
-        _.each @model.messages, (message) =>
-          @$('#chat-log').append message.$el
+        @$el.html @template @model
         @

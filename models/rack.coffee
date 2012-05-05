@@ -1,7 +1,7 @@
 Backbone = require 'backbone'
 
 @include = ->
-  @shared '/js/models/tile.js': ->
+  @shared '/js/models/rack.js': ->
     
     root = window ? global
     
@@ -32,11 +32,21 @@ Backbone = require 'backbone'
       validWord: ->
         Dictionary.hasWord @word()
       
+      # Values are based on word length
+      # http://en.wikipedia.org/wiki/Boggle
       value: ->
-        wordSize = @reduce (total, tile) ->
-          total += title.get('letter').length if tile.get 'isPlayed'
-          total
-        , 0
+        Rack.wordValue @word()
+        
+      @wordValue: (word) ->
+        length = word.length
+        if Dictionary.hasWord(word) and length > 2
+          switch length
+            when 3, 4 then return 1
+            when 5 then return 2
+            when 6 then return 3
+            when 7 then return 5
+            else return 11
+        0
       
       play: (letter) ->
         letter = 'qu' if letter == 'q'

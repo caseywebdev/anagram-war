@@ -16,7 +16,11 @@ requireRecursive = (file) ->
 # Directories to require
 reqs = [
   "#{__dirname}/config.coffee"
-  "#{__dirname}/models"
+  "#{__dirname}/models/dictionary.coffee"
+  "#{__dirname}/models/user.coffee"
+  "#{__dirname}/models/tile.coffee"
+  "#{__dirname}/models/rack.coffee"
+  "#{__dirname}/models/battle.coffee"
   "#{__dirname}/views"
   "#{__dirname}/controllers"
   "#{__dirname}/client"

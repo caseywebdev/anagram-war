@@ -90,7 +90,7 @@
         border-radius: 3px
         box-shadow: 0 1px 3px rgba(0, 0, 0, .5)
         
-        &.in-game
+        &.in-battle
           background: #f66
       
     

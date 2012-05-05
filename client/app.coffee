@@ -22,6 +22,12 @@
         .append(view.$el)
         .scrollTop $('#chat-log')[0].scrollHeight
     
+    lobby = ->
+      (new LobbyView model:
+        users: users
+        messages: messages
+      ).render()
+    
     signIn = (error) ->
       (new SignInView model: error: error).render()
     
@@ -29,11 +35,11 @@
       notice 'Connected to Anagram War.'
     
     @on disconnect: ->
+      users.reset()
       notice 'Your connection to Anagram War was lost.'
+      lobby()
       signIn if user.get 'name' then 'You were disconnected.' else null
       user = new User
-      users.reset()
-      $('#users-list').empty()
     
     @on error: ->
       notice "An error occurred. #{@data}"
@@ -62,10 +68,7 @@
     
     $ =>
       
-      (new LobbyView model:
-        users: users
-        messages: messages
-      ).render()
+      lobby()
       
       signIn()
       
