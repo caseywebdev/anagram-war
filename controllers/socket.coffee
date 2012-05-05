@@ -100,6 +100,7 @@ _ = require 'underscore'
       @broadcast notice: data
       @emit users: users.toJSON()
       @broadcast users: users.toJSON()
+      battle.destroy()
     , Battle.DURATION
   
   @on declineChallenge: ->
