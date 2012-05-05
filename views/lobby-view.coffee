@@ -11,7 +11,7 @@ Backbone = require 'backbone'
       template: _.template '''
         <div id='users-container'>
           <h1>Users</h1>
-          <p>Click on a user to battle them.</p>
+          <p>Click a user to challenge them.</p>
           <div id='users-list'></div>
         </div><div id='chat-container'>
           <div id='chat-log'></div>

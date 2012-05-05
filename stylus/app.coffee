@@ -53,7 +53,7 @@
     #main
       container()
       padding-bottom: 200px
-      height: 400px;
+      height: 410px;
       background: url('/images/footer.png') center bottom no-repeat
     
     #footer
@@ -70,6 +70,9 @@
         &:hover
           color: #fff
           text-decoration: underline
+    
+    #sign-in
+      margin-top: 5px
     
     #users-container
       float: left
@@ -143,11 +146,12 @@
       border-radius: 3px
       background: #fff noise
       box-shadow: 0 1px 3px rgba(0, 0, 0, .5)
+      text-align: center
     
     #user1-container,
     #user2-container
       float: left
-      width: 200px
+      width: 230px
       border-radius: 3px
       background: #fff noise
       box-shadow: 0 1px 3px rgba(0, 0, 0, .5)
@@ -156,7 +160,7 @@
         line-height: 40px
         color: #fff
         text-shadow: 0 1px 1px rgba(0, 0, 0, .5)
-        background: #f66 noise
+        background: #f96 noise
         text-align: center
         font-size: 20px
         border-top-left-radius: 3px
@@ -166,7 +170,7 @@
         line-height: 50px
         color: #fff
         text-shadow: 0 1px 1px rgba(0, 0, 0, .5)
-        background: #f96 noise
+        background: #f66 noise
         text-align: center
         font-size: 30px
       
@@ -174,20 +178,50 @@
         height: 210px
         overflow-y: auto
         padding: 10px
+    
+    #user2-container
+      float: right
+    
+    #accept-challenge,
+    #decline-challenge
+      dislay: inline-block
+      padding: 5px
+      color: #fff
+      text-shadow: 0 1px 1px rgba(0, 0, 0, .5)
+      background: #9f9 noise
+    
+    #decline-challenge
+      background-color: #f66
+    
+    #play-message
+      position: absolute
+      display: none
+      width: 100%
+      line-height: 80px
+      font-size: 50px
+      text-align: center
+      text-shadow: 0 1px 1px rgba(0, 0, 0, .5)
       
+      &.red
+        color: #f66
+        
+      &.green
+        color: #9f9
+    
     #rack
       float: left
-      width: 400px
+      padding: 0 10px
+      width: 320px
       text-align: center
       
-      .tile
-        display: inline-block
-        width: 80px
-        padding-top: 20px
-        height: 60px
-        color: #fff
-        text-shadow: 0 1px 1px rgba(0, 0, 0, .75)
-        font-size: 30px
-        text-align: center
-        background: url('/images/tile.png') center no-repeat
+    .tile
+      display: inline-block
+      width: 80px
+      padding-top: 20px
+      height: 60px
+      color: #fff
+      text-shadow: 0 1px 1px rgba(0, 0, 0, .75)
+      font-size: 30px
+      text-align: center
+      background: url('/images/tile.png') center no-repeat
   '''

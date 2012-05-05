@@ -12,11 +12,20 @@ _ = require 'underscore'
 
   @on disconnect: ->
     if name = @client.user.get 'name'
+      if @client.user.get 'inBattle'
+        battle = battles.filter((battle) ->
+          battle.get('users').where(name: name).length
+        )[0]
+        opponent = battle.get('users').find (u) ->
+          u.get('name') isnt name
+        battle.destroy()
+        opponent.set inBattle: false
+        @broadcast notice:
+          text: "#{_.escape opponent.get 'name'} defeated #{_.escape name}!"
+        @io.sockets.socket(opponent.get 'socketId').emit 'battleOver'
       @broadcast notice:
-        battle: @client.user.get 'battle'
         text: "#{name} has disconnected."
       @client.user.destroy()
-      @emit users: users.toJSON()
       @broadcast users: users.toJSON()
   
   @on attr: ->
@@ -43,7 +52,6 @@ _ = require 'underscore'
         @emit 'signedIn'
       else
         @emit 'nameUnavailable'
-    
   
   @on say: ->
     text = @data.text.replace(/\s+/, ' ').replace /^ | $/, ''
@@ -66,8 +74,14 @@ _ = require 'underscore'
       users: new User.Collection [user1, user2]
       rack: (new Rack).randomize()
     battles.add battle
-    user1.set inBattle: true
-    user2.set inBattle: true
+    user1.set
+      number: 1
+      inBattle: true
+      words: []
+    user2.set
+      number: 2
+      inBattle: true
+      words: []
     @emit users: users.toJSON()
     @broadcast users: users.toJSON()
     @emit 'battle', battle: battle.toJSON()
@@ -76,5 +90,26 @@ _ = require 'underscore'
   @on declineChallenge: ->
     user1 = users.where(name: @data.name1)[0]
     @io.sockets.socket(user1.get 'socketId').emit 'declineChallenge', name2: @client.user.get 'name'
-
+  
+  @on play: ->
+    name = @client.user.get 'name'
+    word = @data.word
+    battle = battles.find (battle) ->
+      battle.get('users').where(name: name).length
+    unless Rack.wordValue word
+      @emit 'notAWord'
+    else if battle.wordPlayed word
+      @emit 'alreadyPlayed'
+    else
+      @client.user.get('words').push word
+      opponent = battle.get('users').find (u) ->
+        u.get('name') isnt name
+      user1 = battle.get('users').where(number: 1)[0]
+      user2 = battle.get('users').where(number: 2)[0]
+      data =
+        user1: user1.toJSON()
+        user2: user2.toJSON()
+      @emit 'playedWord'
+      @emit play: data
+      @io.sockets.socket(opponent.get 'socketId').emit 'play', data
   

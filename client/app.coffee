@@ -71,16 +71,69 @@
       (new ChallengeView model: name1: user1.get 'name').render()
     
     @on battle: ->
+      user.set
+        inBattle: true
+        words: []
       _.PopUp.hide()
       battle = new Battle @data.battle
       battle.set
         users: new User.Collection battle.get 'users'
         rack: new Rack battle.get 'rack'
       (new BattleView model: battle).render()
+      playMessage 'green', 'GO!!!'
     
     @on declineChallenge: ->
       _.PopUp.show "#{_.escape @data.name2} declined your challenge.", duration: 2000
     
+    @on battleOver: ->
+      user.set inBattle: false
+      lobby()
+    
+    @on play: ->
+      battle.get('users').reset [@data.user1, @data.user2]
+      user.set if user.get('name') is @data.user1.name then @data.user1 else user.set @data.user2
+      $('#user1-container .score').html Rack.wordValue @data.user1.words
+      $('#user1-container .words')
+        .html(_.reduce @data.user1.words, (html, word) ->
+          html + "<strong>#{Rack.wordValue word}</strong> #{word}<br>"
+        , '')
+        .scrollTop $('#user1-container .words').prop 'scrollHeight'
+      $('#user2-container .score').html Rack.wordValue @data.user2.words
+      $('#user2-container .words')
+        .html(_.reduce @data.user2.words, (html, word) ->
+          html + "<strong>#{Rack.wordValue word}</strong> #{word}<br>"
+        , '')
+        .scrollTop $('#user2-container .words').prop 'scrollHeight'
+    
+    @on alreadyPlayed: ->
+      alreadyPlayed()
+    
+    alreadyPlayed = ->
+      playMessage 'red', 'Already played!'
+    
+    @on notAWord: ->
+      notAWord()
+    
+    notAWord = ->
+      playMessage 'red', 'Not a word!'
+    
+    @on playedWord: ->
+      playedWord()
+    
+    playedWord = ->
+      playMessage 'green', 'Played word!'
+    
+    playMessage = (color, text) ->
+      $('#play-message')
+        .removeClass()
+        .addClass(color)
+        .text(text)
+        .stop()
+        .css(
+          opacity: 1
+          display: 'block'
+        ).animate opacity: 0, 1000, -> $(@).css display: 'none'
+        
     $ =>
       
       lobby()
@@ -121,4 +174,34 @@
         _.PopUp.hide()
         @emit declineChallenge:
           name1: $(e.currentTarget).data 'name1'
+      )
+      
+      lastChar = ''
+            
+      $(document).on('keydown', (e) =>
+        if user.get 'inBattle'
+          if e.keyCode is 8
+            battle.get('rack').removeLast()
+            $("#played-tiles .tile").last().appendTo $ '#rack'
+            e.preventDefault()
+            lastChar = ''
+          else if e.keyCode is 13
+            word = battle.get('rack').word()
+            if word.length > 2
+              unless Rack.wordValue
+                notAWord()
+              else if battle.wordPlayed word
+                alreadyPlayed()
+              else
+                @emit play:
+                  word: word
+              battle.get('rack').removeAll()
+              $("#played-tiles .tile").appendTo $ '#rack'
+            lastChar = ''
+          else
+            char = String.fromCharCode e.keyCode
+            unless lastChar is 'Q' and char is 'U'
+              if battle.get('rack').play char
+                $("#rack .letter-#{char}").first().appendTo $ '#played-tiles'
+            lastChar = char
       )
