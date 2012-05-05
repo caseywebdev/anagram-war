@@ -216,6 +216,8 @@
             DURATION: 0
             FADE_DURATION: 250
             
+            outside: true
+            
             # Build the PopUp element
             build: ->
             
@@ -260,9 +262,12 @@
                     ).css
                       display: 'inline-block'
                       position: 'relative'
-                o.$container.on 'click', -> o.$div.find('.js-pop-up-outside').click()
+                o.$container.on 'click', ->
+                  if o.outside
+                    o.$div.find('.js-pop-up-outside').click()
+                  o.outside = true
                 o.$div
-                  .on('click', false)
+                  .on('click', -> o.outside = false; true)
                   .on 'click', '.js-pop-up-hide', o.hide
                 $(document).keydown (e) ->
                   if o.$container.css('display') is 'block' and not $('body :focus').length

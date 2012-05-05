@@ -6,7 +6,7 @@ _ = require 'underscore'
   battles = new Battle.Collection
   
   @on connection: ->
-    @client.user = new User
+    @client.user = new User socketId: @id
     @emit users: users.toJSON()
     @broadcast users: users.toJSON()
 
@@ -53,10 +53,23 @@ _ = require 'underscore'
         text: text
       @broadcast say: data
       @emit say: data
+  
+  @on challenge: ->
+    console.log @data.name2
+    socketId = users.where(name: @data.name2)[0].get 'socketId'
+    @io.sockets.socket(socketId).emit 'challenge', name1: @data.name1
+  
+  @on acceptChallenge: ->
+    user1 = users.where(name: @data.name2)[0]
+    user2 = @client.user
+    battle = new Battle
+    battle.users.add [user1, user2]
+    battle.rack.randomize()
+    @emit 'battle', battle: battle.toJSON()
+    @io.sockets.socket(user1.get 'socketId').emit 'battle', battle: battle.toJSON()
+  
+  @on declineChallenge: ->
+    user1 = users.where(name: @data.name1)[0]
+    @io.sockets.socket(user1.get 'socketId').emit 'declineChallenge', name2: @client.user.get 'name'
 
-  @on room: ->
-    #if @client.user.get('battle') isnt @data
-      
-  
-  
   

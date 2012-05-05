@@ -22,6 +22,8 @@
         script src: '/js/views/message-view.js'
         script src: '/js/views/user-view.js'
         script src: '/js/views/sign-in-view.js'
+        script src: '/js/views/challenge-view.js'
+        script src: '/js/views/battle-view.js'
         script src: '/js/app.js'
         script """
           Dictionary.words = _.reduce(#{JSON.stringify @words}, function(obj, word) {

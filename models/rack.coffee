@@ -1,3 +1,4 @@
+_ = require 'underscore'
 Backbone = require 'backbone'
 
 @include = ->
@@ -11,7 +12,7 @@ Backbone = require 'backbone'
       
       played: []
       
-      random: ->
+      randomize: ->
         @reset()
         basket = []
         _.each Tile.DISTRIBUTION, (occurances, letter) ->
