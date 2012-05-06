@@ -131,6 +131,9 @@
     playedWord = ->
       playMessage 'green', 'Played word!'
     
+    tooShort = ->
+      playMessage 'red', 'Word too short!'
+    
     playMessage = (color, text) ->
       $('#play-message')
         .removeClass()
@@ -195,16 +198,17 @@
             lastChar = ''
           else if e.keyCode is 13
             word = battle.get('rack').word()
-            if word.length > 2
-              unless Rack.wordValue
-                notAWord()
-              else if battle.wordPlayed word
-                alreadyPlayed()
-              else
-                @emit play:
-                  word: word
-              battle.get('rack').removeAll()
-              $("#played-tiles .tile").appendTo $ '#rack'
+            if word.length < 3
+              tooShort()
+            unless Rack.wordValue
+              notAWord()
+            else if battle.wordPlayed word
+              alreadyPlayed()
+            else
+              @emit play:
+                word: word
+            battle.get('rack').removeAll()
+            $("#played-tiles .tile").appendTo $ '#rack'
             lastChar = ''
           else
             char = String.fromCharCode e.keyCode
