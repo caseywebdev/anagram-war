@@ -18,6 +18,7 @@ _ = require 'underscore'
         )[0]
         opponent = battle.get('users').find (u) ->
           u.get('name') isnt name
+        clearTimeout battle.get 'timeout'
         battle.destroy()
         opponent.set inBattle: false
         @broadcast notice:
@@ -84,7 +85,7 @@ _ = require 'underscore'
     @broadcast users: users.toJSON()
     @emit 'battle', battle: battle.toJSON()
     @io.sockets.socket(user1.get 'socketId').emit 'battle', battle: battle.toJSON()
-    setTimeout =>
+    battle.set timeout: setTimeout =>
       user1.set inBattle: false
       user2.set inBattle: false
       @emit 'battleOver'

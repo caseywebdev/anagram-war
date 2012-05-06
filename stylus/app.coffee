@@ -179,6 +179,9 @@
         height: 210px
         overflow-y: auto
         padding: 10px
+        
+        strong
+          color: #f66
     
     #user2-container
       float: right
