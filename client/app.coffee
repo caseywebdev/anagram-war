@@ -84,7 +84,6 @@
       setTimeout ->
         secondsLeft = 10
         countdown = setInterval ->
-          console.log 'tick'
           playMessage 'green', "#{secondsLeft} seconds left!!!"
           clearInterval countdown if --secondsLeft < 1
         , 1000

@@ -64,7 +64,6 @@ _ = require 'underscore'
       @emit say: data
   
   @on challenge: ->
-    console.log @data.name2
     socketId = users.where(name: @data.name2)[0].get 'socketId'
     @io.sockets.socket(socketId).emit 'challenge', name1: @data.name1
   
