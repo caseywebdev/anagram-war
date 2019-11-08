@@ -4,12 +4,15 @@ It's a war of the words. Uses Node, Backbone, Underscore, jQuery, Express, Conne
 
 How to Run
 ----------
-You must have Node.js, NPM and CoffeeScript installed.
+You must have node.js and npm installed. Run
 
-1. `cd /to/the/repo`
-2. `npm install`
-3. `coffee app`
-4. go to http://localhost:3000 in your browser
+```sh
+cd /to/the/repo
+npm install
+npm start
+```
+
+And then go to http://localhost:3000.
 
 How to Play
 -----------
